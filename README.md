@@ -6,7 +6,7 @@ This interactive Python web application is built using Streamlit and hosted in a
 ## Authors
 * Darren Li
 * Jason Nguyen
-* Liam Huang
+* Liam Huang 14035606
 * Nick Drage
 
 # Structure
