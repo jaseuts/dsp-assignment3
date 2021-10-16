@@ -1,1 +1,3 @@
 # To be filled by students
+streamlit==0.89.0
+pandas==1.3.3
