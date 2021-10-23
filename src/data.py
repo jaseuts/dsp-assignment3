@@ -37,20 +37,20 @@ class Dataset:
     """
       Return dictionary with column name as keys and data type as values
     """
-    return self.df.dtypes.astype(str).reset_index().rename(columns={'index':'column', 0:'type'}).set_index('column')
-    #return self.df.dtypes.to_dict()
+    #return self.df.dtypes.astype(str).reset_index().rename(columns={'index':'column', 0:'type'}).set_index('column')
+    return self.df.dtypes.astype(str)#.to_dict()
   
   def get_n_duplicates(self):
     """
       Return number of duplicated rows of loaded dataset
     """
-    return str(sum(self.df.duplicated()))
+    return sum(self.df.duplicated())
 
   def get_n_missing(self):
     """
       Return number of rows with missing values of loaded dataset
     """
-    return str(sum(self.df.isnull().any(axis=1)))
+    return sum(self.df.isnull().any(axis=1))
 
   def get_head(self, n):
     """
