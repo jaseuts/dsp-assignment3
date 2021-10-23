@@ -94,4 +94,11 @@ class DateColumn:
     """
     Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
     """
-    return None
+    counts = self.series.value_counts()
+    percents = self.series.value_counts(normalize=True)
+    freq_df = pd.DataFrame(data={
+          'Frequency':counts,
+          'Percetage':percents
+          })
+    freq_df = freq_df.sort_values('Frequency',ascending=False)
+    return freq_df.head(20)
