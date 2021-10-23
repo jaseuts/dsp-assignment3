@@ -19,13 +19,13 @@ class Dataset:
     """
       Return number of rows of loaded dataset
     """
-    return str(self.df.shape[0])
+    return self.df.shape[0]
 
   def get_n_cols(self):
     """
       Return number of columns of loaded dataset
     """
-    return str(self.df.shape[1])
+    return self.df.shape[1]
 
   def get_cols_list(self):
     """
