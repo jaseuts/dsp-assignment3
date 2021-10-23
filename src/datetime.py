@@ -8,7 +8,7 @@ import datetime
 @dataclass
 class DateColumn:
   col_name: str
-  series: pd.Series
+  serie: pd.serie
 
   def get_name(self):
     """
@@ -20,21 +20,21 @@ class DateColumn:
     """
     Return number of unique values for selected column
     """
-    unique = self.series.unique()
+    unique = self.serie.unique()
     return len(unique)
 
   def get_missing(self):
     """
     Return number of missing values for selected column
     """
-    missing = self.series.isna()
+    missing = self.serie.isna()
     return sum(missing)
 
   def get_weekend(self):
     """
     Return number of occurrence of days falling during weekend (Saturday and Sunday)
     """
-    dates = self.series
+    dates = self.serie
     weekend = dates[(dates.dt.weekday == 5) | (dates.dt.weekday == 6)]
     return len(weekend)
 
@@ -42,7 +42,7 @@ class DateColumn:
     """
     Return number of weekday days (not Saturday or Sunday)
     """
-    dates = self.series
+    dates = self.serie
     weekday = dates[(dates.dt.weekday != 5) & (dates.dt.weekday != 6)]
     return len(weekday)
   
@@ -51,7 +51,7 @@ class DateColumn:
     Return number of cases with future dates (after today)
     """
     now = datetime.datetime.now()
-    dates = self.series
+    dates = self.serie
     future = dates[dates.dt.date > now.date()]
     return None
 
@@ -59,7 +59,7 @@ class DateColumn:
     """
     Return number of occurrence of 1900-01-01 value
     """
-    dates = self.series
+    dates = self.serie
     date_1900 = dates[dates.dt.date == datetime.date(1900,1,1)]
     return len(date_1900)
 
@@ -67,7 +67,7 @@ class DateColumn:
     """
     Return number of occurrence of 1970-01-01 value
     """
-    dates = self.series
+    dates = self.serie
     date_1970 = dates[dates.dt.date == datetime.date(1970,1,1)]
     return len(date_1970)
     return None
@@ -76,13 +76,13 @@ class DateColumn:
     """
     Return the minimum date
     """
-    return min(self.series)
+    return min(self.serie)
 
   def get_max(self):
     """
     Return the maximum date 
     """
-    return max(self.series)
+    return max(self.serie)
 
   def get_barchart(self):
     """
@@ -94,8 +94,8 @@ class DateColumn:
     """
     Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
     """
-    counts = self.series.value_counts()
-    percents = self.series.value_counts(normalize=True)
+    counts = self.serie.value_counts()
+    percents = self.serie.value_counts(normalize=True)
     freq_df = pd.DataFrame(data={
           'Frequency':counts,
           'Percetage':percents
