@@ -48,7 +48,7 @@ class TextColumn:
     """
     Return number of rows with only lower case characters for selected column
     """
-    lower_ocunt = self.serie.str.islower().sum()
+    lower_count = self.serie.str.islower().sum()
     return lower_count
 
   def get_uppercase(self):
