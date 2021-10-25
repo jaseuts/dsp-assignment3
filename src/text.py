@@ -1,13 +1,16 @@
 # To be filled by students
+import pandas as pd
+import altair as alt
 import streamlit as st
 from dataclasses import dataclass
-import pandas as pd
 
+# In case the uploaded csv file has more than 5000 rows
+alt.data_transformers.disable_max_rows()  
 
 @dataclass
 class TextColumn:
-  col_name: str
-  serie: pd.Series
+  col_name: str = None
+  serie: pd.Series = None
   
   def get_name(self):
     """
