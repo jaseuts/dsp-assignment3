@@ -6,8 +6,8 @@ import pandas as pd
 
 @dataclass
 class Dataset:
-  name: str
-  df: pd.DataFrame
+  name: str = None
+  df: pd.DataFrame = None
   
   def get_name(self):
     """
