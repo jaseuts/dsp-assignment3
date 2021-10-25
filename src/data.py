@@ -19,83 +19,71 @@ class Dataset:
     """
       Return number of rows of loaded dataset
     """
-    n_rows = self.df.shape[0]
-    return n_rows
+    return self.df.shape[0]
 
   def get_n_cols(self):
     """
       Return number of columns of loaded dataset
     """
-    n_cols = self.df.shape[1]
-    return n_cols
+    return self.df.shape[1]
 
   def get_cols_list(self):
     """
       Return list column names of loaded dataset
     """
-    cols_list = self.df.columns.map(str)
-    return cols_list
+    return self.df.columns.map(str)
 
   def get_cols_dtype(self):
     """
       Return dictionary with column name as keys and data type as values
     """
     #return self.df.dtypes.astype(str).reset_index().rename(columns={'index':'column', 0:'type'}).set_index('column')
-    cols_dtype = self.df.dtypes.astype(str)#.to_dict()
-    return cols_dtype
+    return self.df.dtypes.astype(str)#.to_dict()
   
   def get_n_duplicates(self):
     """
       Return number of duplicated rows of loaded dataset
     """
-    n_duplicates = sum(self.df.duplicated())
-    return n_duplicates
+    return sum(self.df.duplicated())
 
   def get_n_missing(self):
     """
       Return number of rows with missing values of loaded dataset
     """
-    n_missing = sum(self.df.isnull().any(axis=1))
-    return n_missing
+    return sum(self.df.isnull().any(axis=1))
 
   def get_head(self, n):
     """
       Return Pandas Dataframe with top rows of loaded dataset
     """
-    head = self.df.head(n)
-    return head
+    return self.df.head(n)
 
   def get_tail(self, n):
     """
       Return Pandas Dataframe with bottom rows of loaded dataset
     """
-    tail = self.df.tail(n)
-    return tail
+    return self.df.tail(n)
 
   def get_sample(self, n):
     """
       Return Pandas Dataframe with random sampled rows of loaded dataset
     """
-    sample = self.df.sample(n)
-    return sample
+    return self.df.sample(n)
 
   def get_numeric_columns(self):
     """
       Return list column names of numeric type from loaded dataset
     """
-    numeric_columns = self.df.select_dtypes(include='number')
-    return numeric_columns
+    return self.df.select_dtypes(include='number')
 
   def get_text_columns(self):
     """
       Return list column names of text type from loaded dataset
     """
-    text_columns = self.df.select_dtypes(include='object')
-    return text_columns
+    return self.df.select_dtypes(include='object')
 
   def get_date_columns(self):
     """
       Return list column names of datetime type from loaded dataset
     """
-    date_columns = self.df.select_dtypes(include=['datetime','timedelta'])
-    return date_columns
+    return self.df.select_dtypes(include=['datetime','timedelta'])
