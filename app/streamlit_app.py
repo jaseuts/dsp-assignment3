@@ -64,6 +64,16 @@ def main():
         except:
             st.error('This data type is not available, try something else')
 
+    # Student B
+        st.header('2. Numeric Column Information')
+
+    
+    # Student C
+        st.header('3. Text Column Information')
+
+    
+    # Student D
+        st.header('4. Datetime Column Information')
 
 
 
