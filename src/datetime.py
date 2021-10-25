@@ -8,7 +8,7 @@ import datetime
 @dataclass
 class DateColumn:
   col_name: str
-  serie: pd.serie
+  serie: pd.Series
 
   def get_name(self):
     """
