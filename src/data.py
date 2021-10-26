@@ -13,7 +13,8 @@ class Dataset:
     """
     Return filename of loaded dataset
     """
-    return self.name
+    self.name = self.df.columns.name
+    return None
 
   def get_n_rows(self):
     """
@@ -40,10 +41,9 @@ class Dataset:
     """
       Return dictionary with column name as keys and data type as values
     """
-    #return self.df.dtypes.astype(str).reset_index().rename(columns={'index':'column', 0:'type'}).set_index('column')
-    cols_dtype = self.df.dtypes.astype(str)#.to_dict()
-    return cols_dtype
-  
+    col_types = pd.DataFrame(self.df.dtypes).astype(str).to_dict()
+    return col_types 
+
   def get_n_duplicates(self):
     """
       Return number of duplicated rows of loaded dataset
@@ -55,7 +55,7 @@ class Dataset:
     """
       Return number of rows with missing values of loaded dataset
     """
-    n_missing = sum(self.df.isnull().any(axis=1))
+    n_missing = self.df[self.df.isnull().any(axis=1)].shape[0]
     return n_missing
 
   def get_head(self, n):
@@ -83,19 +83,20 @@ class Dataset:
     """
       Return list column names of numeric type from loaded dataset
     """
-    numeric_columns = self.df.select_dtypes(include='number')
+    numeric_columns = self.df.select_dtypes(include='number').columns.tolist()
     return numeric_columns
 
   def get_text_columns(self):
     """
       Return list column names of text type from loaded dataset
     """
-    text_columns = self.df.select_dtypes(include='object')
+    text_columns = self.df.select_dtypes(include='object').columns.tolist()
     return text_columns
 
   def get_date_columns(self):
     """
       Return list column names of datetime type from loaded dataset
     """
-    date_columns = self.df.select_dtypes(include=['datetime','timedelta'])
+    date_columns = self.df.select_dtypes(include='datetime').columns.tolist()
     return date_columns
+
