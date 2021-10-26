@@ -6,13 +6,14 @@ import pandas as pd
 
 @dataclass
 class Dataset:
-  name: str
+  name: str = 
   df: pd.DataFrame
   
   def get_name(self):
     """
     Return filename of loaded dataset
     """
+    self.name = self.df.columns.name
     return None
 
   def get_n_rows(self):
