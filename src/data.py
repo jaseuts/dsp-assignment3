@@ -41,14 +41,14 @@ class Dataset:
     """
       Return dictionary with column name as keys and data type as values
     """
-    col_types = pd.DataFrame(self.df.dtypes).astype(str).to_dict()
-    return col_types 
+    col_types = pd.DataFrame(self.df.dtypes).astype(str).to_dict().get(0)
+    return col_types
 
   def get_n_duplicates(self):
     """
       Return number of duplicated rows of loaded dataset
     """
-    n_duplicates = sum(self.df.duplicated())
+    n_duplicates = self.df.duplicated().sum()
     return n_duplicates
 
   def get_n_missing(self):
@@ -58,21 +58,21 @@ class Dataset:
     n_missing = self.df[self.df.isnull().any(axis=1)].shape[0]
     return n_missing
 
-  def get_head(self, n):
+  def get_head(self, n=5):
     """
       Return Pandas Dataframe with top rows of loaded dataset
     """
     head = self.df.head(n)
     return head
 
-  def get_tail(self, n):
+  def get_tail(self, n=5):
     """
       Return Pandas Dataframe with bottom rows of loaded dataset
     """
     tail = self.df.tail(n)
     return tail
 
-  def get_sample(self, n):
+  def get_sample(self, n=5):
     """
       Return Pandas Dataframe with random sampled rows of loaded dataset
     """
@@ -99,4 +99,3 @@ class Dataset:
     """
     date_columns = self.df.select_dtypes(include='datetime').columns.tolist()
     return date_columns
-
