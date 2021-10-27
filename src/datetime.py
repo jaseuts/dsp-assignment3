@@ -53,7 +53,7 @@ class DateColumn:
     now = datetime.datetime.now()
     dates = self.serie
     future = dates[dates.dt.date > now.date()]
-    return None
+    return len(future)
 
   def get_empty_1900(self):
     """
@@ -70,7 +70,6 @@ class DateColumn:
     dates = self.serie
     date_1970 = dates[dates.dt.date == datetime.date(1970,1,1)]
     return len(date_1970)
-    return None
 
   def get_min(self):
     """
