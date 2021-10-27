@@ -3,11 +3,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-import sys
-sys.path.insert(0, '../src')
+from src import data, text, numeric, datetime
 
-import data
-import numeric
+
 
 
 def main():
@@ -22,7 +20,7 @@ def main():
      
         st.header('1. Overall Information')
             
-        st.markdown('**Name of Table: **' + ds.get_name())
+        #st.markdown('**Name of File: **' + ds.get_name())
             
         st.markdown('**Number of Rows: **' + str(ds.get_n_rows()))
             
@@ -73,7 +71,8 @@ def main():
 
     
     # Student D
-        st.header('4. Datetime Column Information')
+        
+        
 
 
 
