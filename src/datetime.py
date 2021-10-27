@@ -1,5 +1,5 @@
-# To be filled by students
 import streamlit as st
+import altair as alt
 from dataclasses import dataclass
 import pandas as pd
 import datetime
@@ -88,6 +88,11 @@ class DateColumn:
     """
     Return the generated bar chart for selected column
     """
+    freq = self.serie.value_counts().to_frame().reset_index()
+    fig = alt.Chart(freq, title='Bar Chart').mark_bar().encode(
+        x=alt.X('index', title=self.col_name, sort=None), 
+        y=alt.Y(0, title='Count of Dates')
+        ).configure_title(anchor='start')
     return None
 
   def get_frequent(self):
