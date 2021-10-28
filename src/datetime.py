@@ -90,19 +90,21 @@ class DateColumn:
     freq = self.serie.value_counts().to_frame().reset_index()
     fig = alt.Chart(freq, title='Bar Chart').mark_bar().encode(
         x=alt.X('index', title=self.col_name, sort=None), 
-        y=alt.Y(0, title='Count of Dates')
-        ).configure_title(anchor='start')
-    return None
+        y=alt.Y(self.col_name, title='Count of Dates')
+        )
+    fig = fig.properties(title='Count of Dates').configure_title(anchor='start')
+    return fig
 
   def get_frequent(self):
     """
     Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
     """
     counts = self.serie.value_counts()
-    percents = self.serie.value_counts(normalize=True)
+    percents = self.serie.value_counts(normalize=True) *100
+    percents = percents.map('{:.2f}%'.format)
     freq_df = pd.DataFrame(data={
           'Frequency':counts,
-          'Percetage':percents
+          'Percentage':percents
           })
     freq_df = freq_df.sort_values('Frequency',ascending=False)
     return freq_df.head(20)
