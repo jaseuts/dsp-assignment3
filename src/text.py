@@ -79,7 +79,7 @@ class TextColumn:
     """
     Return the mode value for selected column
     """
-    mode_val = ', '.join(self.serie.mode().tolist()
+    mode_val = ', '.join(self.serie.mode().tolist())
     return mode_val
 
 

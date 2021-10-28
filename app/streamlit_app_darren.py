@@ -89,7 +89,7 @@ def main():
 
             st.altair_chart(date_col.get_barchart(), use_container_width=True)
 
-            st.dataframe(date_col.get_frequent())
+            st.table(date_col.get_frequent())
         
 
 
