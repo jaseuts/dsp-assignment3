@@ -1,3 +1,4 @@
+# To be filled by students
 import pandas as pd
 import altair as alt
 import streamlit as st
@@ -78,7 +79,7 @@ class TextColumn:
     """
     Return the mode value for selected column
     """
-    mode_val = ', '.join(self.serie.mode().tolist())
+    mode_val = ', '.join(self.serie.mode().tolist()
     return mode_val
 
 
@@ -89,7 +90,7 @@ class TextColumn:
     freq = self.serie.value_counts().to_frame().reset_index()
     fig = alt.Chart(freq, title='Bar Chart').mark_bar().encode(
         x=alt.X('index', title=self.col_name, sort=None), 
-        y=alt.Y(0, title='Count of Records')
+        y=alt.Y(col[1], title='Count of Records')
         ).configure_title(anchor='start')
     return fig
 
