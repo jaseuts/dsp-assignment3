@@ -2,7 +2,6 @@
 import pandas as pd
 import streamlit as st
 
-
 from src.data import Dataset
 from src.text import TextColumn
 
