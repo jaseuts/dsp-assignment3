@@ -1,5 +1,5 @@
-# To be filled by students
 import streamlit as st
+import altair as alt
 from dataclasses import dataclass
 import pandas as pd
 import datetime
@@ -53,7 +53,7 @@ class DateColumn:
     now = datetime.datetime.now()
     dates = self.serie
     future = dates[dates.dt.date > now.date()]
-    return None
+    return len(future)
 
   def get_empty_1900(self):
     """
@@ -70,7 +70,6 @@ class DateColumn:
     dates = self.serie
     date_1970 = dates[dates.dt.date == datetime.date(1970,1,1)]
     return len(date_1970)
-    return None
 
   def get_min(self):
     """
@@ -88,17 +87,24 @@ class DateColumn:
     """
     Return the generated bar chart for selected column
     """
-    return None
+    freq = self.serie.value_counts().to_frame().reset_index()
+    fig = alt.Chart(freq, title='Bar Chart').mark_bar().encode(
+        x=alt.X('index', title=self.col_name, sort=None), 
+        y=alt.Y(self.col_name, title='Count of Dates')
+        )
+    fig = fig.properties(title='Count of Dates').configure_title(anchor='start')
+    return fig
 
   def get_frequent(self):
     """
     Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
     """
     counts = self.serie.value_counts()
-    percents = self.serie.value_counts(normalize=True)
+    percents = self.serie.value_counts(normalize=True) *100
+    percents = percents.map('{:.2f}%'.format)
     freq_df = pd.DataFrame(data={
           'Frequency':counts,
-          'Percetage':percents
+          'Percentage':percents
           })
     freq_df = freq_df.sort_values('Frequency',ascending=False)
     return freq_df.head(20)
