@@ -24,7 +24,7 @@ def main():
      
         st.header('1. Overall Information')
             
-        st.markdown('**Name of File: **' + str(ds.get_name()))
+        st.markdown('**Name of Table: **' + str(ds.get_name()))
             
         st.markdown('**Number of Rows: **' + str(ds.get_n_rows()))
             
