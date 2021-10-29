@@ -38,7 +38,7 @@ def main():
         st.write(', '.join(ds.get_cols_list()))
             
         st.markdown('**Type of Columns: **')
-        st.dataframe(pd.DataFrame(ds.get_cols_dtype()).rename(columns={0:'type'}))
+        st.dataframe(pd.DataFrame(ds.get_cols_dtype(), index=['type']).transpose())
         
         number = st.slider('Select the number of rows to be displayed', min_value=1, max_value=df.shape[0], key='slider01')
         st.markdown('**Top Rows of Table: **')
@@ -59,21 +59,24 @@ def main():
         try:
             for mo in multi_option:
                 ds.df[mo] = pd.to_datetime(ds.df[mo])         
-            col_numeric = ds.get_numeric_columns()  # numeric dataframe
-            col_string = ds.get_text_columns()      # object dataframe (may need to convert to string)
-            col_date = ds.get_date_columns()        # date dataframe
+            col_numeric = ds.df[ds.get_numeric_columns()]  # numeric dataframe
+            col_text = ds.df[ds.get_text_columns()]        # object dataframe (may need to convert to string)
+            col_date = ds.df[ds.get_date_columns()]        # date dataframe
             #st.write(ds.get_cols_dtype())
         except:
             st.error('This data type is not available, try something else')
+
 
     # Student B
         st.header('2. Numeric Column Information')
 
     
+
     # Student C
         st.header('3. Text Column Information')
 
-    
+
+
     # Student D
         st.header('4. Datetime Column Information')
         
