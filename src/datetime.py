@@ -1,9 +1,8 @@
-import streamlit as st
 import altair as alt
 from dataclasses import dataclass
 import pandas as pd
 import datetime
-
+import numpy as np
 
 @dataclass
 class DateColumn:
@@ -34,7 +33,9 @@ class DateColumn:
     """
     Return number of occurrence of days falling during weekend (Saturday and Sunday)
     """
-    dates = self.serie
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return 0
     weekend = dates[(dates.dt.weekday == 5) | (dates.dt.weekday == 6)]
     return len(weekend)
 
@@ -42,7 +43,9 @@ class DateColumn:
     """
     Return number of weekday days (not Saturday or Sunday)
     """
-    dates = self.serie
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return 0
     weekday = dates[(dates.dt.weekday != 5) & (dates.dt.weekday != 6)]
     return len(weekday)
   
@@ -51,7 +54,9 @@ class DateColumn:
     Return number of cases with future dates (after today)
     """
     now = datetime.datetime.now()
-    dates = self.serie
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return 0
     future = dates[dates.dt.date > now.date()]
     return len(future)
 
@@ -59,7 +64,9 @@ class DateColumn:
     """
     Return number of occurrence of 1900-01-01 value
     """
-    dates = self.serie
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return 0
     date_1900 = dates[dates.dt.date == datetime.date(1900,1,1)]
     return len(date_1900)
 
@@ -67,7 +74,9 @@ class DateColumn:
     """
     Return number of occurrence of 1970-01-01 value
     """
-    dates = self.serie
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return 0
     date_1970 = dates[dates.dt.date == datetime.date(1970,1,1)]
     return len(date_1970)
 
@@ -75,7 +84,10 @@ class DateColumn:
     """
     Return the minimum date
     """
-    return min(self.serie)
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return np.nan
+    return min(dates)
 
   def get_max(self):
     """
@@ -100,8 +112,7 @@ class DateColumn:
     Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
     """
     counts = self.serie.value_counts()
-    percents = self.serie.value_counts(normalize=True) *100
-    percents = percents.map('{:.2f}%'.format)
+    percents = self.serie.value_counts(normalize=True) 
     freq_df = pd.DataFrame(data={
           'Frequency':counts,
           'Percentage':percents
