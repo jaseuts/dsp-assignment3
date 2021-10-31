@@ -1,9 +1,14 @@
-# To be filled by students
+# WRITTEN BY JASON
+
 import pandas as pd
 import streamlit as st
+import altair as alt
 
 from src.data import Dataset
 from src.text import TextColumn
+
+# In case the uploaded csv file has more than 5000 rows
+alt.data_transformers.disable_max_rows()
 
 def main():
     st.title('Data Explorer Tool')
@@ -18,15 +23,17 @@ def main():
     st.write('##')
     
     upload_file = st.file_uploader('Choose a CSV file')
-
-    if upload_file:
+    
+    if upload_file: 
         extension = upload_file.name.split('.')[1]
+        # To ensure a CSV file to be uploaded before the app proceeds to the next step of displaying information
         if extension.upper() != 'CSV':
             st.warning('**:warning: This app only accepts CSV file type**')
             st.info('**Please re-upload another file**')
         else:
             data = pd.read_csv(upload_file)
-            data.columns.name = upload_file.name           
+            data.columns.name = upload_file.name  
+            # Instantiate a Dataset class
             ds = Dataset(df=data)
             ds.get_name()
 
@@ -40,8 +47,6 @@ def main():
             st.text(', '.join(ds.get_cols_list()))
 
             '**Type of Columns:**'
-            #st.write(pd.DataFrame(ds.df.dtypes).astype(str).to_dict())
-            #st.dataframe(pd.DataFrame(ds.get_cols_dtype().items(), columns=['type']))
             st.write(pd.DataFrame.from_dict(ds.get_cols_dtype(), orient='index', columns=['type']))
             
             rows = st.slider('Select the number of rows to be displayed', min_value=5, max_value=ds.df.shape[0], value=5)
@@ -67,9 +72,6 @@ def main():
                 else:
                     st.error("Column " + col + " has numeric type, shouldn't be converted into datetime")
 
-            # for testing. remove later
-            st.dataframe(pd.DataFrame.from_dict(ds.get_cols_dtype(), orient='index', columns=['type']))
-
             st.header('3. Text Column Information')
             i = 1
             for col in ds.get_text_columns():
@@ -93,7 +95,7 @@ def main():
                 st.dataframe(info)
             
                 st.altair_chart(tc.get_barchart(), use_container_width=True)
-
+                
                 st.dataframe(tc.get_frequent())
 
         
