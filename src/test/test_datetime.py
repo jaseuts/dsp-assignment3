@@ -62,6 +62,15 @@ class TestDateTime(unittest.TestCase):
         self.assertEqual( self.simple_dates.get_max(), simple_max)
         self.assertTrue(np.isnan(bad_min))
 
+    def test_frequency(self):
+        actual_frame =pd.DataFrame(data={
+            'Frequency':[2,1,1],
+            'Percentage':[0.5,0.25,0.25]
+        },index = [datetime.datetime(1900,1,1),datetime.datetime(2022,1,1),
+                   datetime.datetime(1970,1,1)])
+        return_df = self.simple_dates.get_frequent()
+        self.assertTrue(return_df.equals(actual_frame))
+
 if __name__ == '__main__':
     unittest.main()
     print('done!')
