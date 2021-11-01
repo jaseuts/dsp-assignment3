@@ -29,7 +29,7 @@ test_dummy_data_class = data.Dataset(name_df, df_test_dummy)
 m = 2
 
 
-class Test_Empty_Data(unittest.TestCase):    
+class testEmptyDataCLass(unittest.TestCase):    
     def test_empty_class_function(self):
         self.assertIsNone(test_empty_data_class.df)
         self.assertIsNone(test_empty_data_class.name)
@@ -144,38 +144,37 @@ class Test_Empty_Data(unittest.TestCase):
             assert e
         else:
             raise AssertionError('get_date_columns():Expected to raise ArributeError') 
-
-
-class Test_Dummy_Data(unittest.TestCase):
-    def test_dummy_class_function(self):
+   
+class testDataClass(unittest.TestCase):
+    def test_class_function(self):
         self.assertEqual(test_dummy_data_class.name, name_df)
         self.assertTrue(df_test_dummy.equals(test_dummy_data_class.df))
 
-    def test_dummy_get_name(self):
+    def test_get_name(self):
         self.assertEqual(test_dummy_data_class.get_name(), name_df)
 
-    def test_dummy_get_n_rows(self):
+    def test_get_n_rows(self):
         self.assertEqual(test_dummy_data_class.get_n_rows(), 5)
 
-    def test_dummy_get_n_cols(self):
+    def test_get_n_cols(self):
         self.assertEqual(test_dummy_data_class.get_n_cols(), 4)
 
-    def test_dummy_get_cols_list(self):
+    def test_get_cols_list(self):
         self.assertEqual(test_dummy_data_class.get_cols_list(), ['A', 'B', 'C', 'D'])
 
-    def test_dummy_get_cols_dtype(self):
+    def test_get_cols_dtype(self):
         self.assertEqual(test_dummy_data_class.get_cols_dtype(), {'A':'float64', 'B':'float64', 'C':'object', 'D':'datetime64[ns]'})
         obj_df = test_dummy_data_class.df.astype(object)
         obj_dummy_data_class = data.Dataset(name_df, obj_df)
         self.assertEqual(obj_dummy_data_class.get_cols_dtype(), {'A':'object', 'B':'object', 'C':'object', 'D':'object'})
 
-    def test_dummy_get_n_duplicates(self):
+    def test_get_n_duplicates(self):
         self.assertEqual(test_dummy_data_class.get_n_duplicates(), 0)
         dup_df = test_dummy_data_class.df.append(test_dummy_data_class.df)
         dup_dummy_data_class = data.Dataset(name_df, dup_df)
         self.assertEqual(dup_dummy_data_class.get_n_duplicates(), 5)
 
-    def test_dummy_get_n_missing(self):
+    def test_get_n_missing(self):
         self.assertEqual(test_dummy_data_class.get_n_missing(), 0)
         # replace all the 0 in the dataframe to None (Null)
         mis_df = test_dummy_data_class.df.replace([0], [None])
@@ -183,25 +182,25 @@ class Test_Dummy_Data(unittest.TestCase):
         # 4 cells in 3 rows has 0 replaced to Null
         self.assertEqual(mis_dummy_data_class.get_n_missing(), 3)
 
-    def test_dummy_get_head(self):
+    def test_get_head(self):
         self.assertTrue(df_test_dummy.head(m).equals(test_dummy_data_class.get_head(m)))
 
-    def test_dummy_get_tail(self):
+    def test_get_tail(self):
         self.assertTrue(df_test_dummy.tail(m).equals(test_dummy_data_class.get_tail(m)))
 
-    def test_dummy_get_sample(self):
+    def test_get_sample(self):
         # buffer the sample dataframe in case of sample function re-ran
         buffer_sample = test_dummy_data_class.get_sample(m)
         # use index for comparison
         self.assertTrue(buffer_sample.equals(df_test_dummy.iloc[buffer_sample.index]))
 
-    def test_dummy_get_numeric_columns(self):
+    def test_get_numeric_columns(self):
         self.assertEqual(test_dummy_data_class.get_numeric_columns(), ['A', 'B'])
 
-    def test_dummy_get_text_columns(self):
+    def test_get_text_columns(self):
         self.assertEqual(test_dummy_data_class.get_text_columns(), ['C'])
 
-    def test_dummy_get_date_columns(self):
+    def test_get_date_columns(self):
         self.assertEqual(test_dummy_data_class.get_date_columns(), ['D'])
     
     
