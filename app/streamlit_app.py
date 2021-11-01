@@ -72,7 +72,7 @@ def main():
 
     # Student D
         st.header('4. Datetime Column Information')
-        date_option = st.selectbox('Which column do you want to look at?', (ds.get_date_columns()))
+        date_option = st.selectbox('Which column do you want to look at?', (col_date))
         if date_option:
             date_col = datetime.DateColumn(date_option,df[date_option])
             st.subheader('Field Name: ' + date_col.get_name())

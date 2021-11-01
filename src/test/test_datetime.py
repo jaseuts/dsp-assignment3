@@ -2,8 +2,10 @@ import unittest
 import pandas as pd
 import datetime
 import numpy as np
-#print(__name__)
+import altair as alt
+
 from src.datetime import DateColumn
+
 class TestDateTime(unittest.TestCase):
     def setUp(self) -> None:
         simple_dates = [datetime.datetime(2022,1,1),datetime.datetime(1900,1,1),
@@ -42,11 +44,11 @@ class TestDateTime(unittest.TestCase):
         self.assertEqual( self.simple_dates.get_future(), 1)
         self.assertEqual( self.bad_dates.get_future(), 0)
     
-    def test_1900(self):
+    def test_empty_1900(self):
         self.assertEqual( self.simple_dates.get_empty_1900(), 2)
         self.assertEqual( self.bad_dates.get_empty_1900(), 0)
     
-    def test_1970(self):
+    def test_empty_1970(self):
         self.assertEqual( self.simple_dates.get_empty_1970(), 1)
         self.assertEqual( self.bad_dates.get_empty_1970(), 0)
     
@@ -62,12 +64,17 @@ class TestDateTime(unittest.TestCase):
         self.assertEqual( self.simple_dates.get_max(), simple_max)
         self.assertTrue(np.isnan(bad_min))
 
+    def test_barchart(self):
+        
+        self.assertIsInstance(self.simple_dates.get_barchart(), alt.Chart)
+
     def test_frequency(self):
         actual_frame =pd.DataFrame(data={
             'Frequency':[2,1,1],
             'Percentage':[0.5,0.25,0.25]
         },index = [datetime.datetime(1900,1,1),datetime.datetime(2022,1,1),
                    datetime.datetime(1970,1,1)])
+
         return_df = self.simple_dates.get_frequent()
         self.assertTrue(return_df.equals(actual_frame))
 
