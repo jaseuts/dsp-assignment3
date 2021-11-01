@@ -98,6 +98,7 @@ def main():
                     st.altair_chart(tc.get_barchart(), use_container_width=True)
                     
                     st.dataframe(tc.get_frequent())
+                    
             except pd.errors.EmptyDataError:
                 st.warning('**:warning: The uploaded CSV file is empty (has no data)!**')      
 

@@ -68,8 +68,33 @@ def main():
         st.header('2. Numeric Column Information')
 
     
-    # Student C
+    # Student C (jason 01066846)
         st.header('3. Text Column Information')
+        i = 1
+        for col in ds.get_text_columns():
+            tc = TextColumn(serie=ds.df[col])
+            tc.get_name()
+            st.subheader('3.' + str(i) + ' Field Name: ' + '_' + tc.col_name + '_')
+            i += 1
+
+            content = {'Number of Unique Values': tc.get_unique(),
+                'Number of Rows with Missing Values': tc.get_missing(),
+                'Number of Empty Rows': tc.get_empty(),
+                'Number of Rows with Only Whitespace': tc.get_whitespace(),
+                'Number of Rows with Only Lowercases': tc.get_lowercase(),
+                'Number of Rows with Only Uppercases': tc.get_uppercase(),
+                'Number of Rows with Only Alphabet': tc.get_alphabet(),
+                'Number of Rows with Only Digits': tc.get_digit(),
+                'Mode Value': tc.get_mode()
+            }   
+
+            info = pd.DataFrame.from_dict(content, orient='index', columns=['value']).astype(str)
+            st.dataframe(info)
+
+            st.altair_chart(tc.get_barchart(), use_container_width=True)
+            
+            st.dataframe(tc.get_frequent())
+        
 
     
     # Student D
