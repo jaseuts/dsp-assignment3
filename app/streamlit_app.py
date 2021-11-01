@@ -1,15 +1,8 @@
-# To be filled by students
 import streamlit as st
 import pandas as pd
 import numpy as np
 
-import sys
-sys.path.insert(0, '../src')
-
-import data
-import numeric
-import text
-import datetime
+from src import data, text, numeric, datetime
 
 
 def main():
@@ -79,6 +72,24 @@ def main():
 
     # Student D
         st.header('4. Datetime Column Information')
+        date_option = st.selectbox('Which column do you want to look at?', (col_date))
+        if date_option:
+            date_col = datetime.DateColumn(date_option,df[date_option])
+            st.subheader('Field Name: ' + date_col.get_name())
+            date_index = ['Number of Unique Values','Number of Rows with Missing Values',
+                        'Number of Weekend Dates','Number of Weekday Dates',
+                        'Number of Dates in Future','Count of 1900-01-01',
+                        'Count of 1970-01-01', 'Minimum Value','Maximium Value']
+            date_attr = [date_col.get_unique(),date_col.get_missing(), date_col.get_weekend(),
+                        date_col.get_weekday(),date_col.get_future(), date_col.get_empty_1900(),
+                        date_col.get_empty_1970(),date_col.get_min(),date_col.get_max()]
+            date_attr = [str(i) for i in date_attr]
+            attr_df = pd.DataFrame(data = date_attr,index=date_index,columns=['Value'])
+            st.table(attr_df)
+
+            st.altair_chart(date_col.get_barchart(), use_container_width=True)
+
+            st.table(date_col.get_frequent())
         
         
 
