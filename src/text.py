@@ -97,7 +97,11 @@ class TextColumn:
     """
     Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
     """
-    freq = self.serie.value_counts().to_frame().reset_index()
-    freq.columns = ['value', 'occurrence']
-    freq['percentage'] = freq['occurrence'] / freq['occurrence'].sum()
-    return freq
+    counts = self.serie.value_counts()
+    percents = self.serie.value_counts(normalize=True)
+    freq = pd.DataFrame(data={
+          'Frequency':counts,
+          'Percetage':percents
+          })
+    df = freq.sort_values('Frequency',ascending=False)
+    return freq.head(20)
