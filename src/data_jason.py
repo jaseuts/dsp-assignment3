@@ -58,21 +58,21 @@ class Dataset:
     n_missing = self.df[self.df.isnull().any(axis=1)].shape[0]
     return n_missing
 
-  def get_head(self, n=5):
+  def get_head(self, n):
     """
       Return Pandas Dataframe with top rows of loaded dataset
     """
     head = self.df.head(n)
     return head
 
-  def get_tail(self, n=5):
+  def get_tail(self, n):
     """
       Return Pandas Dataframe with bottom rows of loaded dataset
     """
     tail = self.df.tail(n)
     return tail
 
-  def get_sample(self, n=5):
+  def get_sample(self, n):
     """
       Return Pandas Dataframe with random sampled rows of loaded dataset
     """
