@@ -21,9 +21,9 @@ def main():
     st.write('##')
     
     # Student A Liam Huang 14035606
-    uploadfile = st.file_uploader("Upload file", accept_multiple_files=False, type=['csv'], key='csvupload')
+    uploadfile = st.file_uploader("Upload file", accept_multiple_files=False, key='csvupload')
     if uploadfile is not None:
-        extension = upload_file.name.split('.')[1]
+        extension = uploadfile.name.split('.')[1]
         # To ensure a CSV file to be uploaded before the app proceeds to the next step of displaying information
         if extension.upper() != 'CSV':
             st.warning('**:warning: This app only accepts CSV file type. Please re-upload another file **')
@@ -76,7 +76,26 @@ def main():
 
                 # Student B
                     st.header('2. Numeric Column Information')
-
+                    k = 1
+                    for col in ds.get_numeric_columns():
+                        dnc = numeric.NumericColumn(col, df[col])
+                        st.subheader('2.' + str(k) + ' Field Name: ' + '_' + dnc.get_name() + '_')
+                        k +=1
+                        dnc_index = ['Number of Unique Values',
+                                    'Number of Rows with Missing Values',
+                                    'Number of Rows with 0','Number of Rows with Negative Values',
+                                    'Average Value','Standard Deviation Value',
+                                    'Minimum Value','Maximum Value','Median Value']
+                        dnc_data = np.array([str(dnc.get_unique()), str(dnc.get_missing()), 
+                                             str(dnc.get_zeros()),str(dnc.get_negatives()),
+                                             str(dnc.get_mean()), str(dnc.get_std()), str(dnc.get_min()),
+                                             str(dnc.get_max()),str(dnc.get_median())])
+                        df_dnc = pd.DataFrame(index=dnc_index, data=dnc_data, columns=['value'])
+                        st.dataframe(df_dnc)
+                        st.markdown('**Histogram**')
+                        st.altair_chart(dnc.get_histogram())
+                        st.markdown('**Most Frequent Values**')
+                        st.dataframe(dnc.get_frequent())
                 
                 # Student C (jason 01066846)
                     st.header('3. Text Column Information')
