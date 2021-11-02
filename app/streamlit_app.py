@@ -1,15 +1,8 @@
-# To be filled by students
 import streamlit as st
 import pandas as pd
 import numpy as np
 
-import sys
-sys.path.insert(0, '../src')
-
-import data
-import numeric
-import text
-import datetime
+from src import data, text, numeric, datetime
 
 
 def main():
@@ -46,6 +39,7 @@ def main():
 
     # Student A 
                 st.header('1. Overall Information')            
+
                 st.markdown('**Name of Table: **' + str(ds.get_name()))
                 if ds.get_n_rows() > 0:           
                     st.markdown('**Number of Rows: **' + str(ds.get_n_rows()))           
@@ -71,6 +65,7 @@ def main():
                 #except:
                 #    st.error('Data type not available, try something else')     
                 # data seperation by types
+
                     multi_option = st.multiselect('Which columns do you want to convert to dates', (df.columns))
                     try:
                         for mo in multi_option:
@@ -81,8 +76,8 @@ def main():
                         #st.write(ds.get_cols_dtype())
                     except:
                         st.error('This data type is not available, try something else')
-            
-            
+
+
     # Student B
                     st.header('2. Numeric Column Information')
 
@@ -118,6 +113,7 @@ def main():
 
 
     # Student D
+
                     st.header('4. Datetime Column Information')
                     date_option = st.selectbox('Which column do you want to look at?', (col_date))
                     if date_option:
@@ -143,7 +139,7 @@ def main():
 
             except pd.errors.EmptyDataError:
                 st.warning('**:warning: The uploaded CSV file is empty (has no data)!**')
-
+        
 
 if __name__ == '__main__':
     main()
