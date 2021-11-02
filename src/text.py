@@ -104,4 +104,4 @@ class TextColumn:
               'Percetage':percents
               })
         df = freq.sort_values('Frequency',ascending=False)
-        return freq.head(20)
+        return df.head(20)
