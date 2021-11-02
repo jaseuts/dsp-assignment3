@@ -31,7 +31,7 @@ def main():
         st.write(', '.join(ds.get_cols_list()))
             
         st.markdown('**Type of Columns: **')
-        st.dataframe(pd.DataFrame(ds.get_cols_dtype()).rename(columns={0:'type'}))
+        st.dataframe(pd.DataFrame(ds.get_cols_dtype(), index=['type']).transpose())
         
         number = st.slider('Select the number of rows to be displayed', min_value=1, max_value=df.shape[0], key='slider01')
         st.markdown('**Top Rows of Table: **')
@@ -52,21 +52,48 @@ def main():
         try:
             for mo in multi_option:
                 ds.df[mo] = pd.to_datetime(ds.df[mo])         
-            col_numeric = ds.get_numeric_columns()  # numeric dataframe
-            col_string = ds.get_text_columns()      # object dataframe (may need to convert to string)
-            col_date = ds.get_date_columns()        # date dataframe
+            col_numeric = ds.df[ds.get_numeric_columns()]  # numeric dataframe
+            col_text = ds.df[ds.get_text_columns()]        # object dataframe (may need to convert to string)
+            col_date = ds.df[ds.get_date_columns()]        # date dataframe
             #st.write(ds.get_cols_dtype())
         except:
             st.error('This data type is not available, try something else')
+
 
     # Student B
         st.header('2. Numeric Column Information')
 
     
-    # Student C
+    # Student C (jason 01066846)
         st.header('3. Text Column Information')
+        i = 1
+        for col in ds.get_text_columns():
+            tc = TextColumn(serie=ds.df[col])
+            tc.get_name()
+            st.subheader('3.' + str(i) + ' Field Name: ' + '_' + tc.col_name + '_')
+            i += 1
 
-    
+            content = {'Number of Unique Values': tc.get_unique(),
+                'Number of Rows with Missing Values': tc.get_missing(),
+                'Number of Empty Rows': tc.get_empty(),
+                'Number of Rows with Only Whitespace': tc.get_whitespace(),
+                'Number of Rows with Only Lowercases': tc.get_lowercase(),
+                'Number of Rows with Only Uppercases': tc.get_uppercase(),
+                'Number of Rows with Only Alphabet': tc.get_alphabet(),
+                'Number of Rows with Only Digits': tc.get_digit(),
+                'Mode Value': tc.get_mode()
+            }   
+
+            info = pd.DataFrame.from_dict(content, orient='index', columns=['value']).astype(str)
+            st.dataframe(info)
+
+            st.altair_chart(tc.get_barchart(), use_container_width=True)
+            
+            st.dataframe(tc.get_frequent())
+        
+
+
+
     # Student D
         st.header('4. Datetime Column Information')
         date_option = st.selectbox('Which column do you want to look at?', (col_date))

@@ -14,19 +14,21 @@ class NumericColumn:
     """
     Return name of selected column
     """
-    return None
+    return self.col_name
 
   def get_unique(self):
     """
     Return number of unique values for selected column
     """
-    return None
+    unique_vals1 = len(self.serie.unique())
+    return unique_vals1
 
   def get_missing(self):
     """
     Return number of missing values for selected column
     """
-    return None
+    na_count1 = self.series.isna().sum()
+    return na_count1
 
   def get_zeros(self):
     """
