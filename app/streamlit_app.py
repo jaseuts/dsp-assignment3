@@ -96,24 +96,29 @@ def main():
 
     # Student D
         st.header('4. Datetime Column Information')
-        date_option = st.selectbox('Which column do you want to look at?', (col_date))
-        if date_option:
-            date_col = datetime.DateColumn(date_option,df[date_option])
-            st.subheader('Field Name: ' + date_col.get_name())
-            date_index = ['Number of Unique Values','Number of Rows with Missing Values',
-                        'Number of Weekend Dates','Number of Weekday Dates',
-                        'Number of Dates in Future','Count of 1900-01-01',
-                        'Count of 1970-01-01', 'Minimum Value','Maximium Value']
-            date_attr = [date_col.get_unique(),date_col.get_missing(), date_col.get_weekend(),
-                        date_col.get_weekday(),date_col.get_future(), date_col.get_empty_1900(),
-                        date_col.get_empty_1970(),date_col.get_min(),date_col.get_max()]
-            date_attr = [str(i) for i in date_attr]
-            attr_df = pd.DataFrame(data = date_attr,index=date_index,columns=['Value'])
-            st.table(attr_df)
+        if ds.get_date_columns():
+            j = 1
+            for col in ds.get_date_columns():
+                date_col = datetime.DateColumn(col, df[col])
+                st.subheader('4.' + str(j) + ' Field Name: ' + '_' + date_col.get_name() + '_')
+                j += 1
+        
+                date_index = ['Number of Unique Values','Number of Rows with Missing Values',
+                            'Number of Weekend Dates','Number of Weekday Dates',
+                            'Number of Dates in Future','Count of 1900-01-01',
+                            'Count of 1970-01-01', 'Minimum Value','Maximium Value']
+                date_attr = [date_col.get_unique(),date_col.get_missing(), date_col.get_weekend(),
+                            date_col.get_weekday(),date_col.get_future(), date_col.get_empty_1900(),
+                            date_col.get_empty_1970(),date_col.get_min(),date_col.get_max()]
+                date_attr = [str(i) for i in date_attr]
+                attr_df = pd.DataFrame(data = date_attr,index=date_index,columns=['Value'])
+                st.table(attr_df)
 
-            st.altair_chart(date_col.get_barchart(), use_container_width=True)
+                st.altair_chart(date_col.get_barchart(), use_container_width=True)
 
-            st.table(date_col.get_frequent())
+                st.table(date_col.get_frequent())
+        else:
+                st.warning('**:warning: No datetime columns detected.**')
         
         
 
