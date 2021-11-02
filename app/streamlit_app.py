@@ -48,16 +48,18 @@ def main():
         #except:
         #    st.error('Data type not available, try something else')     
 
-        multi_option = st.multiselect('Which columns do you want to convert to dates', (df.columns))
-        try:
-            for mo in multi_option:
-                ds.df[mo] = pd.to_datetime(ds.df[mo])         
-            col_numeric = ds.df[ds.get_numeric_columns()]  # numeric dataframe
-            col_text = ds.df[ds.get_text_columns()]        # object dataframe (may need to convert to string)
-            col_date = ds.df[ds.get_date_columns()]        # date dataframe
-            #st.write(ds.get_cols_dtype())
-        except:
-            st.error('This data type is not available, try something else')
+        cols = st.multiselect('Which columns do you want to convert to dates', 
+                                    ds.df.columns.tolist()
+                                    )
+        for col in cols:
+            if ds.df[col].dtypes in ['object', 'datetime']:
+                try:
+                    ds.df[col] = pd.to_datetime(ds.df[col])
+                    st.success('** Successfully converted column ' + col + ' into datetime**')
+                except ValueError as e:
+                    st.error('Parsing column ' + col + ':\n\t to_datetime error (' + str(e) + ')')
+            else:
+                st.error("Column " + col + " has numeric type, shouldn't be converted into datetime")
 
 
     # Student B
@@ -68,7 +70,7 @@ def main():
         st.header('3. Text Column Information')
         i = 1
         for col in ds.get_text_columns():
-            tc = TextColumn(serie=ds.df[col])
+            tc = text.TextColumn(serie=ds.df[col])
             tc.get_name()
             st.subheader('3.' + str(i) + ' Field Name: ' + '_' + tc.col_name + '_')
             i += 1
