@@ -1,9 +1,8 @@
-# To be filled by students
-import streamlit as st
+import altair as alt
 from dataclasses import dataclass
 import pandas as pd
 import datetime
-
+import numpy as np
 
 @dataclass
 class DateColumn:
@@ -34,7 +33,9 @@ class DateColumn:
     """
     Return number of occurrence of days falling during weekend (Saturday and Sunday)
     """
-    dates = self.serie
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return 0
     weekend = dates[(dates.dt.weekday == 5) | (dates.dt.weekday == 6)]
     return len(weekend)
 
@@ -42,7 +43,9 @@ class DateColumn:
     """
     Return number of weekday days (not Saturday or Sunday)
     """
-    dates = self.serie
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return 0
     weekday = dates[(dates.dt.weekday != 5) & (dates.dt.weekday != 6)]
     return len(weekday)
   
@@ -51,15 +54,19 @@ class DateColumn:
     Return number of cases with future dates (after today)
     """
     now = datetime.datetime.now()
-    dates = self.serie
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return 0
     future = dates[dates.dt.date > now.date()]
-    return None
+    return len(future)
 
   def get_empty_1900(self):
     """
     Return number of occurrence of 1900-01-01 value
     """
-    dates = self.serie
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return 0
     date_1900 = dates[dates.dt.date == datetime.date(1900,1,1)]
     return len(date_1900)
 
@@ -67,16 +74,20 @@ class DateColumn:
     """
     Return number of occurrence of 1970-01-01 value
     """
-    dates = self.serie
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return 0
     date_1970 = dates[dates.dt.date == datetime.date(1970,1,1)]
     return len(date_1970)
-    return None
 
   def get_min(self):
     """
     Return the minimum date
     """
-    return min(self.serie)
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+      return np.nan
+    return min(dates)
 
   def get_max(self):
     """
@@ -88,17 +99,23 @@ class DateColumn:
     """
     Return the generated bar chart for selected column
     """
-    return None
+    freq = self.serie.value_counts().to_frame().reset_index()
+    fig = alt.Chart(freq, title='Bar Chart').mark_bar().encode(
+        x=alt.X('index', title=self.col_name, sort=None), 
+        y=alt.Y(self.col_name, title='Count of Dates')
+        )
+    fig = fig.properties(title='Count of Dates').configure_title(anchor='start')
+    return fig
 
   def get_frequent(self):
     """
     Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
     """
     counts = self.serie.value_counts()
-    percents = self.serie.value_counts(normalize=True)
+    percents = self.serie.value_counts(normalize=True) 
     freq_df = pd.DataFrame(data={
           'Frequency':counts,
-          'Percetage':percents
+          'Percentage':percents
           })
     freq_df = freq_df.sort_values('Frequency',ascending=False)
     return freq_df.head(20)
