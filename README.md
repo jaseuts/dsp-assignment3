@@ -24,3 +24,5 @@ Order to rebuild app:
 
 # Notes
 1. Use 'csse_covid_19_daily_reports_us_01-01-2021.csv' or 'dummy_trim.csv' to do the premilinary run
+
+Test
