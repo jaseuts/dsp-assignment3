@@ -97,6 +97,7 @@ def main():
                         st.markdown('**Most Frequent Values**')
                         st.dataframe(dnc.get_frequent())
                 
+                
                 # Student C Jason 01066846
                     st.header('3. Text Column Information')
                     i = 1
@@ -124,8 +125,6 @@ def main():
                         
                         st.dataframe(tc.get_frequent())
                     
-
-
 
                 # Student D Darren 13867270
                     st.header('4. Datetime Column Information')

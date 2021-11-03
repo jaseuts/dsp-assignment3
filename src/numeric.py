@@ -4,8 +4,10 @@ from dataclasses import dataclass
 import pandas as pd
 import altair as alt
 
+
 # In case the uploaded csv file has more than 5000 rows
 alt.data_transformers.disable_max_rows()
+
 
 
 @dataclass
@@ -93,3 +95,4 @@ class NumericColumn:
             buffer_data = self.serie.value_counts().head(n).values
             df_buffer = pd.DataFrame({'value':buffer_value,'occurrence':buffer_data,'percentage':(buffer_data/self.serie.size)})
         return df_buffer
+
