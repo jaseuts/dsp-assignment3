@@ -33,7 +33,7 @@ This interactive Python web application is built using Streamlit and hosted in a
 
 ## Instructions
 CLI:  
-	1. `cd \path\to\the\project_folder`: changes a current working directory to the project folder  
+	1. `cd \path\to\the\project_folder`: changes the current working directory to the project folder  
 	2. `docker build -t streamlit_assignment03:latest .`: builds a docker image called *streamlit_assignment03* with the tag *latest*  
 	3. `docker run -dit --rm --name eda_app -p 8501:8501 -v "${PWD}":/app streamlit_assignment03:latest`: creates a container called *eda_app* from the image built in step 2
 
