@@ -11,5 +11,4 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
-
 CMD ["streamlit", "run", "app/streamlit_app.py"]
