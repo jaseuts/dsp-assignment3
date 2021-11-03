@@ -60,7 +60,7 @@ class TextColumn:
         """
         upper_count = self.serie.str.isupper().sum()
         return upper_count
-  
+    
     def get_alphabet(self):
         """
         Return number of rows with only alphabet characters for selected column
@@ -95,13 +95,13 @@ class TextColumn:
 
     def get_frequent(self):
         """
-        Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
-        """
+		Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
+		"""
         counts = self.serie.value_counts()
         percents = self.serie.value_counts(normalize=True)
         freq = pd.DataFrame(data={
               'Frequency':counts,
               'Percetage':percents
-              })
+        })
         df = freq.sort_values('Frequency',ascending=False)
-        return freq.head(20)
+        return df.head(20)
