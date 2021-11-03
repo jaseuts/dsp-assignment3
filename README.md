@@ -20,15 +20,15 @@ This interactive Python web application is built using Streamlit and hosted in a
 │   │   ├── test_datetime.py		<- contains code to test class DateColumn
 │   │   ├── test_numeric.py			<- contains code to test class NumericColumn
 │   │   └── test_text.py			<- contains code to test class TextColumn
-│   ├── __init__.py				<- marks the directory of the package src
-│   ├── data.py					<- contains code to construct class Dataset
-│   ├── datetime.py				<- contains code to construct class DateColumn
-│   ├── numeric.py				<- contains code to construct class NumericColumn
-│   └── text.py					<- contains code to construct class TextColumn
-├── docker-compose.yml		<- contains instructions to build a docker image for the app
-├── dockerfile				<- contains instructions to build a docker image for the app
-├── README.md					<- contains general information of the project
-└── requirements.txt			<- specifies the required packages and their versions
+│   ├── __init__.py					<- marks the directory of the package src
+│   ├── data.py						<- contains code to construct class Dataset
+│   ├── datetime.py					<- contains code to construct class DateColumn
+│   ├── numeric.py					<- contains code to construct class NumericColumn
+│   └── text.py						<- contains code to construct class TextColumn
+├── docker-compose.yml				<- contains instructions to build a docker image for the app
+├── dockerfile						<- contains instructions to build a docker image for the app
+├── README.md						<- contains general information of the project
+└── requirements.txt				<- specifies the required packages and their versions
 ```
 
 ## Instructions
