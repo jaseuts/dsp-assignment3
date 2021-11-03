@@ -1,4 +1,5 @@
-# To be filled by students
+# WRITTEN BY JASON
+
 import pandas as pd
 import altair as alt
 import streamlit as st
@@ -95,13 +96,13 @@ class TextColumn:
 
     def get_frequent(self):
         """
-		Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
-		"""
+        Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
+        """
         counts = self.serie.value_counts()
         percents = self.serie.value_counts(normalize=True)
         freq = pd.DataFrame(data={
               'Frequency':counts,
               'Percetage':percents
         })
-        df = freq.sort_values('Frequency',ascending=False)
+        df = freq.sort_values('Frequency', ascending=False)
         return df.head(20)
