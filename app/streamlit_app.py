@@ -18,7 +18,6 @@ def main():
         * Liam Huang
         * Nick Drage
     ''')
-    st.write('##')
     
     # Student A Liam Huang 14035606
     uploadfile = st.file_uploader("Upload file", accept_multiple_files=False, key='csvupload')
@@ -78,7 +77,7 @@ def main():
                             st.error("Column " + col + " has numeric type, shouldn't be converted into datetime")
 
 
-                # Student B
+                # Student B Nick 13975368
                     st.header('2. Numeric Column Information')
                     k = 1
                     for col in ds.get_numeric_columns():
@@ -160,9 +159,6 @@ def main():
 
             except pd.errors.EmptyDataError:
                 st.warning('**:warning: The uploaded CSV file is empty (has no data)!**')      
-
-                
-
 
 
 if __name__ == '__main__':
