@@ -9,20 +9,35 @@ This interactive Python web application is built using Streamlit and hosted in a
 * Liam Huang
 * Nick Drage
 
-# Structure
+## Structure
+```
+.
+├── app
+│   └── streamlit_app.py			<- contains the main code to run the streamlit EDA app
+├── src
+│   ├── test
+│   │   ├── test_data.py			<- contains code to test class Dataset
+│   │   ├── test_datetime.py			<- contains code to test class DateColumn
+│   │   ├── test_numeric.py			<- contains code to test class NumericColumn
+│   │   └── test_text.py			<- contains code to test class TextColumn
+│   ├── __init__.py				<- marks the directory of the package src
+│   ├── data.py					<- contains code to construct class Dataset
+│   ├── datetime.py				<- contains code to construct class DateColumn
+│   ├── numeric.py				<- contains code to construct class NumericColumn
+│   └── text.py					<- contains code to construct class TextColumn
+├── docker-compose.yml				<- contains instructions to build a docker image for the app
+├── dockerfile					<- contains instructions to build a docker image for the app
+├── README.md					<- contains general information of the project
+└── requirements.txt				<- specifies the required packages and their versions
+```
 
-# Instructions
-Bash Command: 
-	1. use 'cd' command, change the path to folder dsp-assignment3 
-	2. $ docker build -t streamlit_assignment03:latest .
-	3. $ docker run -dit --rm --name assignment03_2 -p 8501:8501 -v "${PWD}":/app streamlit_assignment03:latest
-Step to stop docker:
-	1. $ docker stop assignment03_2
-Order to rebuild app:
-	1. stop docker
-	2. run the script under Bash Command (2 and 3)
+## Instructions
+CLI:  
+	1. `cd \path\to\the\project_folder`: changes the current working directory to the project folder  
+	2. `docker build -t streamlit_assignment03:latest .`: builds a docker image called *streamlit_assignment03* with the tag *latest*  
+	3. `docker run -dit --rm --name eda_app -p 8501:8501 -v "${PWD}":/app streamlit_assignment03:latest`: creates a container called *eda_app* from the image built in step 2
 
-# Notes
-1. Use 'csse_covid_19_daily_reports_us_01-01-2021.csv' or 'dummy_trim.csv' to do the premilinary run
+## Notes
+Use `csse_covid_19_daily_reports_us_01-01-2021.csv` or `dummy_trim.csv` to test the app's functionalities.
 
-Test
+*(Written by jason and Liam)*
