@@ -82,7 +82,7 @@ def main():
                     k = 1
                     for col in ds.get_numeric_columns():
                         dnc = numeric.NumericColumn(col, df[col])
-                        st.subheader('2.' + str(k) + ' Field Name: ' + '_' + dnc.get_name() + '_')
+                        st.subheader('2.' + str(k) + ' Field Name: ' + '*' + dnc.get_name() + '*')
                         k +=1
                         dnc_index = ['Number of Unique Values',
                                     'Number of Rows with Missing Values',

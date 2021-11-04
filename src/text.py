@@ -1,4 +1,5 @@
-# To be filled by students
+# WRITTEN BY JASON
+
 import pandas as pd
 import altair as alt
 import streamlit as st
@@ -102,6 +103,7 @@ class TextColumn:
         freq = pd.DataFrame(data={
               'Frequency':counts,
               'Percetage':percents
-              })
-        df = freq.sort_values('Frequency',ascending=False)
-        return freq.head(20)
+        })
+        df = freq.sort_values('Frequency', ascending=False)
+        return df.head(20)
+
