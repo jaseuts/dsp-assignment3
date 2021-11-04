@@ -97,8 +97,7 @@ def main():
                         st.markdown('**Most Frequent Values**')
                         st.dataframe(dnc.get_frequent())
                 
-                
-                # Student C Jason 01066846
+                # Student C (jason 01066846)
                     st.header('3. Text Column Information')
                     i = 1
                     for col in ds.get_text_columns():
@@ -126,7 +125,9 @@ def main():
                         st.dataframe(tc.get_frequent())
                     
 
-                # Student D Darren 13867270
+
+
+                # Student D 13867270
                     st.header('4. Datetime Column Information')
                     if ds.get_date_columns():
                         j = 1
