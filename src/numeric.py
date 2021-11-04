@@ -3,6 +3,7 @@ from typing import Sized
 import streamlit as st
 from dataclasses import dataclass
 import pandas as pd
+import math
 import altair as alt
 
 
@@ -83,6 +84,8 @@ class NumericColumn:
         Return the median value for selected column
         """
         medvalue = self.serie.median()
+        if math.isnan(medvalue):
+            st.warning(self.col_name + ' column has no values')
         return medvalue
 
     def get_histogram(self):
