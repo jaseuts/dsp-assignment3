@@ -93,7 +93,10 @@ class DateColumn:
         """
         Return the maximum date 
         """
-        return max(self.serie)
+        dates = self.serie[self.serie.notna()]
+        if dates.empty:
+            return np.nan
+        return max(dates)
 
     def get_barchart(self):
         """
