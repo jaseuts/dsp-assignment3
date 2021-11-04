@@ -50,7 +50,7 @@ def main():
                         
                     st.markdown('**Type of Columns: **')
                     st.dataframe(pd.DataFrame(ds.get_cols_dtype(), index=['type']).transpose())
-                    
+
                     if df.shape[0] > 5:
                         number = st.slider('Select the number of rows to be displayed', min_value=5, max_value=df.shape[0], key='slider01')
                     else:
@@ -70,7 +70,7 @@ def main():
                         if ds.df[col].dtypes in ['object', 'datetime']:
                             try:
                                 ds.df[col] = pd.to_datetime(ds.df[col])
-                                st.success('** Successfully converted column ' + col + ' into datetime**')
+                                st.success('**Successfully converted column ' + col + ' into datetime**')
                             except ValueError as e:
                                 st.error('Parsing column ' + col + ':\n\t to_datetime error (' + str(e) + ')')
                         else:
