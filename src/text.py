@@ -61,7 +61,7 @@ class TextColumn:
         """
         upper_count = self.serie.str.isupper().sum()
         return upper_count
-    
+  
     def get_alphabet(self):
         """
         Return number of rows with only alphabet characters for selected column
@@ -106,3 +106,4 @@ class TextColumn:
         })
         df = freq.sort_values('Frequency', ascending=False)
         return df.head(20)
+

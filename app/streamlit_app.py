@@ -18,7 +18,6 @@ def main():
         * Liam Huang
         * Nick Drage
     ''')
-    st.write('##')
     
     # Student A Liam Huang 14035606
     uploadfile = st.file_uploader("Upload file", accept_multiple_files=False, key='csvupload')
@@ -51,11 +50,15 @@ def main():
                         
                     st.markdown('**Type of Columns: **')
                     st.dataframe(pd.DataFrame(ds.get_cols_dtype(), index=['type']).transpose())
-                    
-                    number = st.slider('Select the number of rows to be displayed', min_value=1, max_value=df.shape[0], key='slider01')
+
+                    if df.shape[0] > 5:
+                        number = st.slider('Select the number of rows to be displayed', min_value=5, max_value=df.shape[0], key='slider01')
+                    else:
+                        number = st.slider('Select the number of rows to be displayed', min_value=1, max_value=df.shape[0], key='slider01')
+                        st.warning('The dataset has less than 5 rows of data so the top/bot/sample data will start from 1 for the slider')
                     st.markdown('**Top Rows of Table: **')
                     st.dataframe(ds.get_head(number))
-                    st.markdown('**Botton Rows of Table **')
+                    st.markdown('**Bottom Rows of Table **')
                     st.dataframe(ds.get_tail(number))
                     st.markdown('**Random Sample Rows of Table **')
                     st.dataframe(ds.get_sample(number))     
@@ -67,7 +70,7 @@ def main():
                         if ds.df[col].dtypes in ['object', 'datetime']:
                             try:
                                 ds.df[col] = pd.to_datetime(ds.df[col])
-                                st.success('** Successfully converted column ' + col + ' into datetime**')
+                                st.success('**Successfully converted column ' + col + ' into datetime**')
                             except ValueError as e:
                                 st.error('Parsing column ' + col + ':\n\t to_datetime error (' + str(e) + ')')
                         else:
@@ -156,9 +159,6 @@ def main():
 
             except pd.errors.EmptyDataError:
                 st.warning('**:warning: The uploaded CSV file is empty (has no data)!**')      
-
-                
-
 
 
 if __name__ == '__main__':
