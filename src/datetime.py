@@ -35,7 +35,7 @@ class DateColumn:
     """
     dates = self.serie[self.serie.notna()]
     if dates.empty:
-      return 0
+        return 0
     weekend = dates[(dates.dt.weekday == 5) | (dates.dt.weekday == 6)]
     return len(weekend)
 
@@ -45,7 +45,7 @@ class DateColumn:
     """
     dates = self.serie[self.serie.notna()]
     if dates.empty:
-      return 0
+        return 0
     weekday = dates[(dates.dt.weekday != 5) & (dates.dt.weekday != 6)]
     return len(weekday)
   
@@ -56,7 +56,7 @@ class DateColumn:
     now = datetime.datetime.now()
     dates = self.serie[self.serie.notna()]
     if dates.empty:
-      return 0
+        return 0
     future = dates[dates.dt.date > now.date()]
     return len(future)
 
@@ -66,7 +66,7 @@ class DateColumn:
     """
     dates = self.serie[self.serie.notna()]
     if dates.empty:
-      return 0
+        return 0
     date_1900 = dates[dates.dt.date == datetime.date(1900,1,1)]
     return len(date_1900)
 
@@ -76,7 +76,7 @@ class DateColumn:
     """
     dates = self.serie[self.serie.notna()]
     if dates.empty:
-      return 0
+        return 0
     date_1970 = dates[dates.dt.date == datetime.date(1970,1,1)]
     return len(date_1970)
 
@@ -86,13 +86,16 @@ class DateColumn:
     """
     dates = self.serie[self.serie.notna()]
     if dates.empty:
-      return np.nan
+    	return np.nan
     return min(dates)
 
   def get_max(self):
     """
     Return the maximum date 
     """
+    dates = self.serie[self.serie.notna()]
+    if dates.empty:
+        return np.nan
     return max(self.serie)
 
   def get_barchart(self):
