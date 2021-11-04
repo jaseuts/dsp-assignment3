@@ -1,4 +1,5 @@
 # To be filled by students
+from typing import Sized
 import streamlit as st
 from dataclasses import dataclass
 import pandas as pd
@@ -60,7 +61,7 @@ class NumericColumn:
         """
         Return the standard deviation value for selected column
         """
-        standarddev = self.erie.std()
+        standarddev = self.serie.std()
         return standarddev
   
     def get_min(self):
@@ -74,7 +75,7 @@ class NumericColumn:
         """
         Return the maximum value for selected column
         """
-        maxval = self.seri.max()
+        maxval = self.serie.max()
         return maxval
 
     def get_median(self):
@@ -94,14 +95,17 @@ class NumericColumn:
         """
         Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
         """
-        n = len(self.serie)
-        if n >= 20:
+        n = 20
+        if n <= self.get_unique():
 	        buffer_value = self.serie.value_counts().head(20).index
 	        buffer_data = self.serie.value_counts().head(20).values
 	        df_buffer = pd.DataFrame({'value':buffer_value,'occurrence':buffer_data,'percentage':(buffer_data/self.serie.size)})
         else:
+            n = self.get_unique()
             buffer_value = self.serie.value_counts().head(n).index
             buffer_data = self.serie.value_counts().head(n).values
             df_buffer = pd.DataFrame({'value':buffer_value,'occurrence':buffer_data,'percentage':(buffer_data/self.serie.size)})
+            st.warning('There is less then 20 records,  ' + str(n) + ' will only be displayed')
+
         return df_buffer
 
