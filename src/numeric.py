@@ -1,4 +1,5 @@
 # To be filled by students
+from typing import Sized
 import streamlit as st
 from dataclasses import dataclass
 import pandas as pd
@@ -25,55 +26,64 @@ class NumericColumn:
         """
         Return number of unique values for selected column
         """
-        return self.serie.nunique()
+        numberunique = self.serie.nunique()
+        return numberunique
 
     def get_missing(self):
         """
         Return number of missing values for selected column
         """
-        return self.serie.isna().sum()
+        missing_value = self.serie.isna().sum()
+        return missing_value
 
     def get_zeros(self):
         """
         Return number of occurrence of 0 value for selected column
         """
-        return (self.serie == 0).sum(axis=0)
+        numberofzeros = (self.serie == 0).sum(axis=0)
+        return numberofzeros
 
     def get_negatives(self):
         """
         Return number of negative values for selected column
         """
-        return (self.serie < 0).sum(axis=0)
+        negativevals = (self.serie < 0).sum(axis=0)
+        return negativevals
 
     def get_mean(self):
         """
         Return the average value for selected column
         """
-        return self.serie.mean()
+        averagevalue = self.serie.mean()
+        return averagevalue
 
     def get_std(self):
         """
         Return the standard deviation value for selected column
         """
-        return self.serie.std()
+        standarddev = self.serie.std()
+        return standarddev
   
     def get_min(self):
         """
         Return the minimum value for selected column
         """
-        return self.serie.min()
+        minval = self.serie.min()
+        return minval
 
     def get_max(self):
         """
         Return the maximum value for selected column
         """
-        return self.serie.max()
+        maxval = self.serie.max()
+        return maxval
 
     def get_median(self):
         """
         Return the median value for selected column
         """
-        return self.serie.median()
+        medvalue = self.serie.median()
+        return medvalue
 
     def get_histogram(self):
         """
@@ -85,14 +95,17 @@ class NumericColumn:
         """
         Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
         """
-        n = len(self.serie)
-        if n >= 20:
+        n = 20
+        if n <= self.get_unique():
 	        buffer_value = self.serie.value_counts().head(20).index
 	        buffer_data = self.serie.value_counts().head(20).values
 	        df_buffer = pd.DataFrame({'value':buffer_value,'occurrence':buffer_data,'percentage':(buffer_data/self.serie.size)})
         else:
+            n = self.get_unique()
             buffer_value = self.serie.value_counts().head(n).index
             buffer_data = self.serie.value_counts().head(n).values
             df_buffer = pd.DataFrame({'value':buffer_value,'occurrence':buffer_data,'percentage':(buffer_data/self.serie.size)})
+            st.warning('There is less then 20 records,  ' + str(n) + ' will only be displayed')
+
         return df_buffer
 
