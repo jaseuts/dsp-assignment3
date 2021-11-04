@@ -74,7 +74,7 @@ def main():
                             st.error("Column " + col + " has numeric type, shouldn't be converted into datetime")
 
 
-                # Student B
+                # Student B Nick 13975368
                     st.header('2. Numeric Column Information')
                     k = 1
                     for col in ds.get_numeric_columns():
