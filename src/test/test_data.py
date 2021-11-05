@@ -5,8 +5,7 @@ from numpy import float64
 import pandas.util.testing
 import pandas as pd
 
-import sys
-sys.path.insert(0, '..')
+from src.data import Dataset
 
 import data
 
