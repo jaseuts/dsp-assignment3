@@ -7,10 +7,7 @@ import pandas as pd
 import numpy as np
 import altair as alt
 
-import sys
-sys.path.insert(0, '..')
-
-import numeric
+from src.numeric import NumericColumn
 
 # set random seed to get reproducible
 np.random.seed(123)
