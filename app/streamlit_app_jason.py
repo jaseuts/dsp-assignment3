@@ -4,6 +4,9 @@ import pandas as pd
 import streamlit as st
 import altair as alt
 
+# Prefer to <set PYTHONPATH "${PYTHONPATH}:/path/to/the/project/folder">
+# in the Dockerfile than to <set ENV PYTHONPATH "${PYTHONPATH}:/src">
+
 from src.data_jason import Dataset
 from src.text import TextColumn
 
