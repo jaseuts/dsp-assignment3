@@ -102,7 +102,7 @@ class TextColumn:
         percents = self.serie.value_counts(normalize=True)
         freq = pd.DataFrame(data={
               'Frequency':counts,
-              'Percetage':percents
+              'Percentage':percents
         })
         df = freq.sort_values('Frequency', ascending=False)
         return df.head(20)
