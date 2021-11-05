@@ -4,8 +4,13 @@ import unittest
 import pandas as pd
 import altair as alt
 from io import StringIO
-from src.text import TextColumn
 from pandas.testing import assert_frame_equal
+
+# Prefer to <set PYTHONPATH "${PYTHONPATH}:/path/to/the/project/folder">
+# in the Dockerfile than to <set ENV PYTHONPATH "${PYTHONPATH}:/src">
+
+from src.text import TextColumn
+
 
 
 data = """
